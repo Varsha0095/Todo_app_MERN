@@ -55,10 +55,10 @@ export async function login(req, res, next) {
   // sending token in response
   res
     .cookie("access_token", token, {
-      httpOnly: true,
+      httpOnly: false,
       secure:
         process.env.NODE_ENV ===
-        "production" /*setting this value to false as the value we set is development*/,
+        "development" /*setting this value to false as the value we set is development*/,
     })
     .status(200)
     .json("User logged in!");
@@ -67,8 +67,8 @@ export async function login(req, res, next) {
 export async function logout(req, res, next) {
   res
     .clearCookie("access_token", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "development",
     })
     .status(200)
     .json({ message: "Logged out successfully!" });
